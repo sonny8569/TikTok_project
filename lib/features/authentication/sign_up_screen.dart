@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_project/constants/gaps.dart';
 import 'package:tiktok_project/constants/sizes.dart';
+import 'package:tiktok_project/features/authentication/email_screen.dart';
 import 'package:tiktok_project/features/authentication/login_screen.dart';
 import 'package:tiktok_project/features/authentication/widgets/auth_button.dart';
 
@@ -11,6 +12,14 @@ class SignUpScreen extends StatelessWidget{
 
   void onLoginTap(BuildContext context){
     Navigator.of(context).push(MaterialPageRoute(builder : (context) => LoginScreen(),
+      ),
+    );
+  }
+
+  void _onEmailTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => EmailScreen(),
       ),
     );
   }
@@ -24,7 +33,7 @@ class SignUpScreen extends StatelessWidget{
             horizontal: Sizes.size40,
           ),
           child: Column(
-            children: const [
+            children:  [
               Gaps.v80,
               Text(
                 "Sign UP for TikTok",
@@ -43,9 +52,12 @@ class SignUpScreen extends StatelessWidget{
                 textAlign: TextAlign.center,
               ),
               Gaps.v40,
-              AuthButton(
+              GestureDetector(
+              onTap: () => _onEmailTap(context),
+              child : AuthButton(
                   icon : FaIcon(FontAwesomeIcons.user),
                   text: "Use email & apssword",),
+              ),
               Gaps.v16,
               AuthButton(
                   icon : FaIcon(FontAwesomeIcons.apple),
@@ -55,7 +67,7 @@ class SignUpScreen extends StatelessWidget{
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade100,
+        color: Colors.grey.shade50,
         elevation: 1,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
