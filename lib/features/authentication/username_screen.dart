@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_project/constants/gaps.dart';
 import 'package:tiktok_project/constants/sizes.dart';
+import 'package:tiktok_project/features/authentication/email_screen.dart';
+import 'package:tiktok_project/features/authentication/widgets/FormButton.dart';
 
 class UserNameScreen extends StatefulWidget{
   const UserNameScreen({super.key});
@@ -24,6 +26,16 @@ class _UserNameScreenState extends State<UserNameScreen> {
       });
     });
   }
+
+  void _onNextTap() {
+    if (_userName.isEmpty) return;
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EmailScreen(),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context){
@@ -72,24 +84,14 @@ class _UserNameScreenState extends State<UserNameScreen> {
                 cursorColor: Theme.of(context).primaryColor,
               ),
               Gaps.v16,
-              FractionallySizedBox(
-                widthFactor: 1,
-                child: AnimatedContainer(
-                  padding:EdgeInsets.symmetric(vertical: Sizes.size16) ,
-                  decoration: BoxDecoration(
-                    color: _userName.isEmpty ? Colors.grey.shade300 : Theme.of(context).primaryColor,
-                    borderRadius:  BorderRadius.circular(Sizes.size5),
-                  ),
-                  child: Text('Next' ,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color:Colors.white,
-                     fontWeight: FontWeight.w600),
-                    ),
-                  duration: Duration(microseconds:500),
-                ),
+              GestureDetector(
+              onTap : _onNextTap,
+              child: FormButton(disabled: _userName.isEmpty),
               ),
-            ]),
+            ],
+        ),
       ),
     );
   }
+
 }
